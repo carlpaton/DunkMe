@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DunkMe", "DunkMe\DunkMe.csproj", "{253F4EE7-CAB2-47FA-BC7F-85875D5EA842}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{1C96620B-548F-421F-A725-0E610FB82B19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{681D5264-BF08-453C-8316-A5B095249D01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{253F4EE7-CAB2-47FA-BC7F-85875D5EA842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{253F4EE7-CAB2-47FA-BC7F-85875D5EA842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{253F4EE7-CAB2-47FA-BC7F-85875D5EA842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{253F4EE7-CAB2-47FA-BC7F-85875D5EA842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C96620B-548F-421F-A725-0E610FB82B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C96620B-548F-421F-A725-0E610FB82B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C96620B-548F-421F-A725-0E610FB82B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C96620B-548F-421F-A725-0E610FB82B19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{681D5264-BF08-453C-8316-A5B095249D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{681D5264-BF08-453C-8316-A5B095249D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{681D5264-BF08-453C-8316-A5B095249D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{681D5264-BF08-453C-8316-A5B095249D01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E720673-89E5-441E-8325-11361031C455}
+	EndGlobalSection
+EndGlobal
