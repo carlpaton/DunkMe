@@ -1,7 +1,6 @@
-CREATE PROCEDURE dbo.sp_insert_game_type 
+CREATE OR ALTER PROCEDURE dbo.sp_insert_game_type 
 	@Name varchar(45), 
-	@Description varchar(200),
-	@new_identity INT = NULL OUTPUT
+	@Description varchar(200)
 AS
 
 /*
@@ -32,12 +31,15 @@ SET NOCOUNT ON
 
 -- 3 - Execute INSERT command
 BEGIN
+
 INSERT INTO [dbo].[game_type]
            ([name]
            ,[description])
      VALUES
            (@Name
-           ,@Description)
-    SET @new_identity = SCOPE_IDENTITY();
+           ,@Description);
+
+SELECT CAST(SCOPE_IDENTITY() AS INT);
+
 END
 GO

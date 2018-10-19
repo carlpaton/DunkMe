@@ -14,14 +14,11 @@ namespace Repository.Implementation
         {
             using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
             {
-                var new_identity = 0;
-
-                connection.Execute(
-                        "sp_insert_game_type", 
-                        new { obj.Name, obj.Description, new_identity }, 
-                        commandType: CommandType.StoredProcedure);
-
-                return new_identity;
+                return connection.Query<int>(
+                    sql: "sp_insert_game_type", 
+                    param: new { obj.Name, obj.Description },
+                    commandType: CommandType.StoredProcedure)
+                    .Single();
             }
         }
 
