@@ -8,7 +8,7 @@ namespace IntegrationTest
     public class GameTypeRepositoryTest
     {
         [TestMethod]
-        public void Insert_returns_new_id()
+        public void Insert_returns_new_id_with_value_greater_than_zero()
         {
             var dbModel = new GameTypeModel
             {
@@ -17,6 +17,8 @@ namespace IntegrationTest
             };
 
             var newId = new GameTypeRepository().Insert(dbModel);
+
+            Assert.IsTrue(newId > 0);
         }
     }
 }
