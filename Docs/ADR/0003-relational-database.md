@@ -31,3 +31,7 @@ Chosen option: "Microsoft SQL", because
 ### *[SQLite]*
 
 - `+` *[Great for small applications]*
+
+
+
+([back](README.md))
