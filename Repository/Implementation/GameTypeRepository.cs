@@ -14,10 +14,11 @@ namespace Repository.Implementation
         {
             using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
             {
-                return connection.Query<int>(
-                    sql: "sp_insert_game_type", 
-                    param: new { obj.Name, obj.Description },
-                    commandType: CommandType.StoredProcedure)
+                return connection
+                    .Query<int>(
+                        "sp_insert_game_type",
+                        new { obj.Name, obj.Description },
+                        commandType: CommandType.StoredProcedure)
                     .Single();
             }
         }
@@ -27,7 +28,9 @@ namespace Repository.Implementation
             using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
             {
                 return connection
-                    .Query<GameTypeModel>("sp_select_list_game_type", commandType: CommandType.StoredProcedure)
+                    .Query<GameTypeModel>(
+                        "sp_select_list_game_type",
+                        commandType: CommandType.StoredProcedure)
                     .ToList();
             }
         }
