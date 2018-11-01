@@ -6,6 +6,6 @@ namespace Repository.Interface
     public interface IGameTypeRepository
     {
         int Insert(GameTypeModel obj);
-        List<GameTypeModel> SelecList();
+        List<GameTypeModel> SelectList();
     }
 }

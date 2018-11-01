@@ -22,7 +22,7 @@ namespace Repository.Implementation
             }
         }
 
-        public List<GameTypeModel> SelecList()
+        public List<GameTypeModel> SelectList()
         {
             using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
             {
