@@ -6,6 +6,7 @@ namespace Repository.Schema
     {
         public int Id { get; set; }
         public int GameTypeId { get; set; }
+        public int PlayerId { get; set; }
         public DateTime InsertDate { get; set; }
     }
 
@@ -14,9 +15,8 @@ namespace Repository.Schema
         public int Id { get; set; }
         public int GameId { get; set; }
         /// <summary>
-        /// 1 if the ball goes in
-        /// 0 if it misses
-        /// verbose logging like this will make reporting easier and leave nothing to interpretation
+        /// 1 for dunk
+        /// 0 for miss
         /// </summary>
         public int Score { get; set; }
         public DateTime InsertDate { get; set; }
