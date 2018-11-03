@@ -22,5 +22,29 @@ namespace IntegrationTest
             // Assert
             Assert.IsTrue(newId > 0);
         }
+
+        [TestMethod]
+        public void SelectList_returns_more_than_one_record()
+        {
+            // Arrange
+            // Act
+            var dbModel = new PlayerRepository().SelectList();
+
+            // Assert
+            Assert.IsTrue(dbModel.Count > 0);
+        }
+
+        [TestMethod]
+        public void Select_given_id_returns_the_record()
+        {
+            // Arrange
+            var givenId = 1;
+
+            // Act
+            var dbModel = new PlayerRepository().Select(givenId);
+
+            // Assert
+            Assert.IsTrue(dbModel.Id == givenId);
+        }
     }
 }

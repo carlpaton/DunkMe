@@ -10,6 +10,11 @@ namespace Repository.Implementation
 {
     public class PlayerRepository : IPlayerRepository
     {
+        public PlayerRepository()
+        {
+            new DapperHelper();
+        }
+
         public int Insert(PlayerModel obj)
         {
             using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
@@ -25,12 +30,27 @@ namespace Repository.Implementation
 
         public PlayerModel Select(int id)
         {
-            throw new System.NotImplementedException();
+            using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
+            {
+                return connection
+                    .Query<PlayerModel>(
+                        "sp_select_player_by_id",
+                        new { id },
+                        commandType: CommandType.StoredProcedure)
+                    .FirstOrDefault();
+            }
         }
 
         public List<PlayerModel> SelectList()
         {
-            throw new System.NotImplementedException();
+            using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
+            {
+                return connection
+                    .Query<PlayerModel>(
+                        "sp_select_list_player",
+                        commandType: CommandType.StoredProcedure)
+                    .ToList();
+            }
         }
     }
 }

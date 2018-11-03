@@ -10,6 +10,11 @@ namespace Repository.Implementation
 {
     public class GameTypeRepository : IGameTypeRepository
     {
+        public GameTypeRepository()
+        {
+            new DapperHelper();
+        }
+
         public int Insert(GameTypeModel obj)
         {
             using (IDbConnection connection = new SqlConnection(ConnectionStrings.Core))
