@@ -1,13 +1,13 @@
-CREATE OR ALTER PROCEDURE dbo.sp_select_list_game_type 
-
+CREATE OR ALTER PROCEDURE dbo.sp_insert_player 
+	@Email varchar(200)
 AS
 
 /*
 ----------------------------------------------------------------------------
--- Object Name: dbo.sp_select_list_game_type
+-- Object Name: dbo.player
 -- Project: Dunkme
--- Business Process: Select all game types
--- Purpose: Selects all records from dbo.game_type
+-- Business Process: New player
+-- Purpose: Insert a record into dbo.player
 -- Detailed Description: .
 -- Database: dunkme
 -- Dependent Objects: None
@@ -18,7 +18,7 @@ AS
 --------------------------------------------------------------------------------------
 -- Rev | CMR | Date Modified | Developer  | Change Summary
 --------------------------------------------------------------------------------------
--- 001 | N\A | 01.11.2018 | Carl Paton | Original code
+-- 001 | N\A | 11.10.2018 | Carl Paton | Original code
 --
 */
 
@@ -28,10 +28,15 @@ SET NOCOUNT ON
 
 -- 2 - Initialize variables
 
--- 3 - Execute SELECT command
+-- 3 - Execute INSERT command
 BEGIN
 
-SELECT * FROM [dbo].[game_type];
+INSERT INTO [dbo].[player]
+           ([Email])
+     VALUES
+           (@Email);
+
+SELECT CAST(SCOPE_IDENTITY() AS INT);
 
 END
 GO

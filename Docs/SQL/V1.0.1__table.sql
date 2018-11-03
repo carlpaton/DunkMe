@@ -3,3 +3,8 @@ CREATE TABLE game_type (
   name VARCHAR(45) NULL,
   description VARCHAR(200) NULL,
   insert_date DATETIME DEFAULT GETDATE());
+
+CREATE TABLE player (
+  id int IDENTITY(1,1) PRIMARY KEY,
+  email VARCHAR(45) NULL,
+  insert_date DATETIME DEFAULT GETDATE());

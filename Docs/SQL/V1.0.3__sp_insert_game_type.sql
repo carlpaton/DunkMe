@@ -9,7 +9,7 @@ AS
 -- Project: Dunkme
 -- Business Process: New game type
 -- Purpose: Insert a record into dbo.game_type
--- Detailed Description: Insert a record into the dbo.Customer table
+-- Detailed Description: .
 -- Database: dunkme
 -- Dependent Objects: None
 -- Called By: Ad-hoc
