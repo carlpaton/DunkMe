@@ -35,7 +35,7 @@ namespace IntegrationTest
             var dbModel = new GameLineRepository().SelectListByGameId(givenId);
 
             // Assert
-            foreach (var id in dbModel.Select(x => x.Id).ToList())
+            foreach (var id in dbModel.Select(x => x.GameId).ToList())
             {
                 Assert.IsTrue(id == givenId);      
             }
