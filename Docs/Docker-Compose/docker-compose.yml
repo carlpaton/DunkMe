@@ -1,0 +1,42 @@
+version: "3.6"
+services:
+
+  dunkme-db:
+    container_name: "dunkme-db"
+    image: "microsoft/mssql-server-linux:2017-CU5"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+
+  dunkme-git-clone:
+    container_name: "dunkme-git-clone"
+    build: ./git-clone
+    image: git_clone
+    volumes:
+      - flyway_git_data:/git_data
+      - flyway_data:/flyway/sql
+    depends_on:
+      - dunkme-db  
+
+  dunkme-baseline:
+    container_name: "dunkme-flyway-baseline"
+    image: "boxfuse/flyway:5.1"
+    command: -url=jdbc:sqlserver://dunkme-db:1433;databaseName=dunkme -schemas=dbo -user=sa -password=Password123 baseline
+    depends_on:
+      - dunkme-git-clone
+
+  dunkme-migrate:
+    container_name: "dunkme-flyway-migrate"
+    image: "boxfuse/flyway:5.1"
+    command: -url=jdbc:sqlserver://dunkme-db:1433;databaseName=dunkme -schemas=dbo -user=sa -password=Password123 migrate
+    volumes:
+      - flyway_data:/flyway/sql
+    depends_on:
+      - dunkme-baseline
+
+volumes:
+    flyway_data:
+    flyway_git_data:
