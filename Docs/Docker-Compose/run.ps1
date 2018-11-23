@@ -3,8 +3,7 @@ Param(
 	[switch]$Pull
 )
 
-
-#set things up
+#SET THINGS UP
 $stopwatch =  [system.diagnostics.stopwatch]::StartNew()
 $containerName = "dunkme-db"
 $imageTag = "2017-CU5"
@@ -14,48 +13,50 @@ $port = "-p 1433:1433"
 $globalWait = 5
 
 function ComposeUpDunkMe {
-	#start database container(s) and run detatched
+
+	#START DATABASE CONTAINER(S) AND RUN DETACHED
 	Write-Host "* Run container detatched (" $imageName ")" -f magenta
 	docker-compose up -d $containerName
 	Write-Host " ... wait for" $globalWait "seconds for" $containerName "to start"
 	Start-Sleep $globalWait
 }
 
-
-#inform the user of the parameters
+#INFORM THE USER OF THE PARAMETERS
 $debug = "Accepted parameters are: "
 $debug += "-Reset " + $Reset
 $debug += " -Pull " + $Pull
 Clear-Host
 Write-Host $debug `n -f green
 
-
-#pull image docker hub
+#PULL IMAGE FROM DOCKER HUB IF THE LOCAL LAYER IS NOT AVAILABLE 
 If ($Pull) {
 	Write-Host "* Pull image (" $imageName ")" -f magenta
 	docker pull $imageName
 }
 
-
-#kill and delete
 If ($Reset) {
+
+	#KILL AND DELETE
 	Write-Host "* Kill and delete container (" $containerName ")" -f magenta
 	docker container kill $containerName
 	docker-compose rm -f
-
+	
+	#SPIN UP
 	ComposeUpDunkMe
 	
-	#build images (this is for services with the 'build' attribute)
-	#included: git-clone ~ this is for the flyway scripts
-	Write-Host "* docker-compose build" -f magenta
+	#BUILD
+	Write-Host "* Docker compose build" -f magenta
 	docker-compose build --no-cache
 
-	#CREATE DATABASE HERE
+	#CREATE DATABASE
 	Write-Host "* Create database" -f magenta	
 	Invoke-Sqlcmd -Query "CREATE DATABASE dunkme" -ServerInstance "localhost" -Username "sa" -Password "Password123"
-	#Invoke-Sqlcmd -Query "SELECT GETDATE() AS TimeOfQuery;" -ServerInstance "localhost" -Username "sa" -Password "Password123"
+	
+	#DEBUG CONNECTION ISSUES
+	#Invoke-Sqlcmd -Query "SELECT GETDATE() AS TimeOfQuery;" -ServerInstance "localhost"
 	#exit
-
+	
+	#
 	docker-compose up -d dunkme-baseline
 	Write-Host " ... wait for" $globalWait "seconds for flyway baseline"
 	Start-Sleep $globalWait
@@ -68,12 +69,10 @@ Else
 	ComposeUpDunkMe
 }
 
-
-#list all running containers
+#LIST
 Write-Host "* List all containers" -f magenta
 docker ps --all
 
-
-#sweet as
+#SWEET AS
 Write-Host `n
-Write-Host "Done! (Took $($stopwatch.Elapsed.TotalSeconds) seconds)" -f magenta
+Write-Host "Sweet As, we are done! (Took $($stopwatch.Elapsed.TotalSeconds) seconds)" -f magenta
