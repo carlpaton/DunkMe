@@ -8,11 +8,13 @@ $stopwatch =  [system.diagnostics.stopwatch]::StartNew()
 $containerName = "dunkme-db"
 $imageTag = "2017-CU5"
 $imageName = "microsoft/mssql-server-linux:" + $imageTag
-$environmentVariables = "-e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Password123' -e 'MSSQL_PID=Express'"
 $port = "-p 1433:1433"
 $globalWait = 5
+$sqlUser = "sa"
+$sqlPass = "Password123"
+$sqlDatabase = "dunkme"
 
-function ComposeUpDunkMe {
+function ComposeUp {
 
 	#START DATABASE CONTAINER(S) AND RUN DETACHED
 	Write-Host "* Run container detatched (" $imageName ")" -f magenta
@@ -42,7 +44,7 @@ If ($Reset) {
 	docker-compose rm -f
 	
 	#SPIN UP
-	ComposeUpDunkMe
+	ComposeUp
 	
 	#BUILD
 	Write-Host "* Docker compose build" -f magenta
@@ -50,13 +52,13 @@ If ($Reset) {
 
 	#CREATE DATABASE
 	Write-Host "* Create database" -f magenta	
-	Invoke-Sqlcmd -Query "CREATE DATABASE dunkme" -ServerInstance "localhost" -Username "sa" -Password "Password123"
+	Invoke-Sqlcmd -Query "CREATE DATABASE "$sqlDatabase -ServerInstance "localhost" -Username $sqlUser -Password $sqlPass
 	
 	#DEBUG CONNECTION ISSUES
 	#Invoke-Sqlcmd -Query "SELECT GETDATE() AS TimeOfQuery;" -ServerInstance "localhost"
 	#exit
 	
-	#
+	#FLYWAY
 	docker-compose up -d dunkme-baseline
 	Write-Host " ... wait for" $globalWait "seconds for flyway baseline"
 	Start-Sleep $globalWait
@@ -64,9 +66,8 @@ If ($Reset) {
 	Write-Host " ... wait for" $globalWait "seconds for flyway migrate"
 	Start-Sleep $globalWait
 } 
-Else 
-{
-	ComposeUpDunkMe
+Else {
+	ComposeUp
 }
 
 #LIST
