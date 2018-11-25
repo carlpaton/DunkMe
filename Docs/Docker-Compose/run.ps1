@@ -52,7 +52,7 @@ If ($Reset) {
 
 	#CREATE DATABASE
 	Write-Host "* Create database" -f magenta	
-	Invoke-Sqlcmd -Query "CREATE DATABASE "$sqlDatabase -ServerInstance "localhost" -Username $sqlUser -Password $sqlPass
+	Invoke-Sqlcmd -Query "CREATE DATABASE dunkme" -ServerInstance "localhost" -Username $sqlUser -Password $sqlPass
 	
 	#DEBUG CONNECTION ISSUES
 	#Invoke-Sqlcmd -Query "SELECT GETDATE() AS TimeOfQuery;" -ServerInstance "localhost"
